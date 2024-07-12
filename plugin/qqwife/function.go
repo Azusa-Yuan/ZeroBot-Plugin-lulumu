@@ -171,10 +171,6 @@ func init() {
 			if e != nil {
 				fiancee, _ = strconv.ParseInt(fid[8]+fid[9], 10, 64)
 			}
-			// log.Infoln("----------------------------")
-			// log.Info(fid)
-			// log.Infoln("----------------------------")
-			// fiancee, _ := strconv.ParseInt(fid[2]+fid[3], 10, 64)
 			// 写入CD
 			err := 民政局.记录CD(gid, uid, "NTR")
 			if err != nil {
@@ -490,15 +486,6 @@ func checkMistress(ctx *zero.Ctx) bool {
 	gid := ctx.Event.GroupID
 	uid := ctx.Event.UserID
 	fid := ctx.State["regex_matched"].([]string)
-	// log.Infoln("----------------------------")
-	// log.Infoln(fid)
-	// log.Infoln(len(fid))
-	// log.Infoln(fid[0])
-	// log.Infoln(fid[1])
-	// log.Infoln(fid[2])
-	// log.Infoln(fid[3])
-	// log.Infoln(fid[9])
-	// log.Infoln("----------------------------")
 	fiancee, err := strconv.ParseInt(fid[3]+fid[4], 10, 64)
 	if err != nil {
 		fiancee, err = strconv.ParseInt(fid[8]+fid[9], 10, 64)
@@ -513,12 +500,6 @@ func checkMistress(ctx *zero.Ctx) bool {
 		ctx.SendChain(message.Text("[ERROR]:", err))
 		return false
 	}
-	// 判断是否符合条件
-	// groupInfo, err := 民政局.查看设置(gid)
-	// if err != nil {
-	// 	ctx.SendChain(message.Text("[ERROR]:", err))
-	// 	return false
-	// }
 	if groupInfo.CanNtr == 0 {
 		ctx.SendChain(message.Text("你群发布了牛头人禁止令，放弃吧"))
 		return false
@@ -577,12 +558,6 @@ func checkDivorce(ctx *zero.Ctx) bool {
 		ctx.SendChain(message.Text("今天你还没结婚哦"))
 		return false
 	}
-	// 获取CD
-	// groupInfo, err := 民政局.查看设置(gid)
-	// if err != nil {
-	// 	ctx.SendChain(message.Text("[ERROR]:", err))
-	// 	return false
-	// }
 	ok, err := 民政局.判断CD(gid, uid, "离婚", groupInfo.CDtime)
 	switch {
 	case err != nil:
@@ -628,11 +603,6 @@ func checkMatchmaker(ctx *zero.Ctx) bool {
 		ctx.SendChain(message.Text("[ERROR]:", err))
 		return false
 	}
-	// groupInfo, err := 民政局.查看设置(gid)
-	// if err != nil {
-	// 	ctx.SendChain(message.Text("[ERROR]:", err))
-	// 	return false
-	// }
 	ok, err := 民政局.判断CD(gid, uid, "做媒", groupInfo.CDtime)
 	switch {
 	case err != nil:

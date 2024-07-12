@@ -314,7 +314,7 @@ func init() {
 		Handle(func(ctx *zero.Ctx) {
 			if rand.Float64() < 0.4 {
 				uid := ctx.Event.UserID
-				var husband int64 = 1043728417
+				var husband int64 = zero.BotConfig.SuperUsers[rand.Intn(len(zero.BotConfig.SuperUsers))]
 				ctx.SendChain(
 					message.At(uid),
 					message.Text("今天你的群老公是"),
