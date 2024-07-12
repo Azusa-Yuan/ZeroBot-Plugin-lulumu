@@ -1,0 +1,11 @@
+plugins/*.so
+plugins/*.dll
+.idea/
+.DS_Store
+.vscode
+go-zero*
+nohup.out
+zerobot
+ZeroBot-Plugin*
+*.syso
+/.direnv
